@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading;
 
 //Enhancement: We added another section so you can reflect on goals you would like to do for the year to improve yourself
-
-
 public abstract class MindfulnessActivity
 {
-    protected int Duration;
+    protected int _duration;
 
 
     public MindfulnessActivity()
@@ -36,7 +34,7 @@ public abstract class MindfulnessActivity
     public void SetDuration()
     {
         Console.Write("Enter the duration of the activity in seconds: ");
-        Duration = int.Parse(Console.ReadLine());
+        _duration = int.Parse(Console.ReadLine());
     }
 
 
@@ -53,7 +51,7 @@ public abstract class MindfulnessActivity
     public void End()
     {
         Console.WriteLine("Good job! You have completed the activity.");
-        Console.WriteLine($"You completed the {this.GetType().Name} Activity for {Duration} seconds.");
+        Console.WriteLine($"You completed the {this.GetType().Name} Activity for {_duration} seconds.");
         ShowAnimation(5);
     }
 
@@ -87,7 +85,7 @@ public class Breathing : MindfulnessActivity
     public override void PerformActivity()
     {
         DateTime startTime = DateTime.Now;
-        while ((DateTime.Now - startTime).TotalSeconds < Duration)
+        while ((DateTime.Now - startTime).TotalSeconds < _duration)
         {
             Console.WriteLine("Breathe in...");
             ShowCountdown(3);
@@ -162,7 +160,7 @@ public class Reflection : MindfulnessActivity
         Console.Clear();
 
 
-        while ((DateTime.Now - startTime).TotalSeconds < Duration)
+        while ((DateTime.Now - startTime).TotalSeconds < _duration)
         {
             string question = Questions[random.Next(Questions.Count)];
             Console.WriteLine(question);
@@ -205,7 +203,7 @@ public class Listing : MindfulnessActivity
         List<string> items = new List<string>();
 
 
-        while ((DateTime.Now - startTime).TotalSeconds < Duration)
+        while ((DateTime.Now - startTime).TotalSeconds < _duration)
         {
             Console.Write("List an item: ");
             string item = Console.ReadLine();
@@ -249,7 +247,7 @@ public class Goals : MindfulnessActivity
         List<string> items = new List<string>();
 
 
-        while ((DateTime.Now - startTime).TotalSeconds < Duration)
+        while ((DateTime.Now - startTime).TotalSeconds < _duration)
         {
             Console.Write("List an item: ");
             string item = Console.ReadLine();
