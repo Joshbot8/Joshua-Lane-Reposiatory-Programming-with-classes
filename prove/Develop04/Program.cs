@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
+
 public abstract class MindfulnessActivity
 {
     protected int Duration;
 
-    public MindfulnessActivity(int duration)
+
+    public MindfulnessActivity()
     {
-        Duration = duration;
+       
     }
+
 
     public void Start()
     {
-        Console.WriteLine($"Starting {this.GetType().Name} Activity");
+        Console.Clear();
+        Console.WriteLine($"Starting {this.GetType().Name} Activity\n");
         Console.WriteLine(Description());
         SetDuration();
+        Console.Clear();
         PrepareToBegin();
         PerformActivity();
         End();
     }
 
+
     public abstract string Description();
+
 
     public void SetDuration()
     {
@@ -30,13 +37,16 @@ public abstract class MindfulnessActivity
         Duration = int.Parse(Console.ReadLine());
     }
 
+
     public void PrepareToBegin()
     {
         Console.WriteLine("Prepare to begin...");
         ShowAnimation(5);
     }
 
+
     public abstract void PerformActivity();
+
 
     public void End()
     {
@@ -44,6 +54,7 @@ public abstract class MindfulnessActivity
         Console.WriteLine($"You completed the {this.GetType().Name} Activity for {Duration} seconds.");
         ShowAnimation(5);
     }
+
 
     public void ShowAnimation(int duration)
     {
@@ -59,14 +70,17 @@ public abstract class MindfulnessActivity
     }
 }
 
-public class BreathingActivity : MindfulnessActivity
+
+public class Breathing : MindfulnessActivity
 {
-    public BreathingActivity(int duration) : base(duration) { }
+    public Breathing()  { }
+
 
     public override string Description()
     {
-        return "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.";
+        return "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.\n";
     }
+
 
     public override void PerformActivity()
     {
@@ -80,6 +94,7 @@ public class BreathingActivity : MindfulnessActivity
         }
     }
 
+
     public void ShowCountdown(int count)
     {
         for (int i = count; i > 0; i--)
@@ -90,7 +105,8 @@ public class BreathingActivity : MindfulnessActivity
     }
 }
 
-public class ReflectionActivity : MindfulnessActivity
+
+public class Reflection : MindfulnessActivity
 {
     private static readonly List<string> Prompts = new List<string>
     {
@@ -99,6 +115,7 @@ public class ReflectionActivity : MindfulnessActivity
         "Think of a time when you helped someone in need.",
         "Think of a time when you did something truly selfless."
     };
+
 
     private static readonly List<string> Questions = new List<string>
     {
@@ -113,12 +130,15 @@ public class ReflectionActivity : MindfulnessActivity
         "How can you keep this experience in mind in the future?"
     };
 
-    public ReflectionActivity(int duration) : base(duration) { }
+
+    public Reflection()  { }
+
 
     public override string Description()
     {
-        return "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.";
+        return "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.\n";
     }
+
 
     public override void PerformActivity()
     {
@@ -126,6 +146,19 @@ public class ReflectionActivity : MindfulnessActivity
         Random random = new Random();
         string prompt = Prompts[random.Next(Prompts.Count)];
         Console.WriteLine(prompt);
+
+
+        Console.Write("\nWhen you have something in mind, press enter to continue.");
+        Console.ReadLine();
+
+
+        Console.Write("\nNow ponder on each of the following questions as they related to this experience.");
+        Console.Write("\nYou may begin in: \n");
+        // Need to put in a wait counter here
+
+
+        Console.Clear();
+
 
         while ((DateTime.Now - startTime).TotalSeconds < Duration)
         {
@@ -136,7 +169,8 @@ public class ReflectionActivity : MindfulnessActivity
     }
 }
 
-public class ListingActivity : MindfulnessActivity
+
+public class Listing : MindfulnessActivity
 {
     private static readonly List<string> Prompts = new List<string>
     {
@@ -147,12 +181,15 @@ public class ListingActivity : MindfulnessActivity
         "Who are some of your personal heroes?"
     };
 
-    public ListingActivity(int duration) : base(duration) { }
+
+    public Listing()  { }
+
 
     public override string Description()
     {
-        return "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.";
+        return "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.\n";
     }
+
 
     public override void PerformActivity()
     {
@@ -161,8 +198,10 @@ public class ListingActivity : MindfulnessActivity
         Console.WriteLine(prompt);
         ShowAnimation(5);
 
+
         DateTime startTime = DateTime.Now;
         List<string> items = new List<string>();
+
 
         while ((DateTime.Now - startTime).TotalSeconds < Duration)
         {
@@ -171,41 +210,95 @@ public class ListingActivity : MindfulnessActivity
             items.Add(item);
         }
 
+
         Console.WriteLine($"You listed {items.Count} items.");
     }
 }
+
+public class Goals : MindfulnessActivity
+{
+    private static readonly List<string> Prompts = new List<string>
+    {
+        "What are your spiritual goals?",
+        "What are your physical goals?",
+        "what are your mental goals?",
+        "what are your spiritual goals?"
+    };
+
+
+    public Goals()  { }
+
+
+    public override string Description()
+    {
+        return "This activity will help you reflect on goals you would like to implement for the year to better yourself.\n";
+    }
+
+
+    public override void PerformActivity()
+    {
+        Random random = new Random();
+        string prompt = Prompts[random.Next(Prompts.Count)];
+        Console.WriteLine(prompt);
+        ShowAnimation(5);
+
+
+        DateTime startTime = DateTime.Now;
+        List<string> items = new List<string>();
+
+
+        while ((DateTime.Now - startTime).TotalSeconds < Duration)
+        {
+            Console.Write("List an item: ");
+            string item = Console.ReadLine();
+            items.Add(item);
+        }
+
+
+        Console.WriteLine($"You listed {items.Count} items.");
+    }
+}
+
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        Dictionary<string, Func<int, MindfulnessActivity>> activities = new Dictionary<string, Func<int, MindfulnessActivity>>
+        Dictionary<string, Func<MindfulnessActivity>> activities = new Dictionary<string, Func<MindfulnessActivity>>
         {
-            { "1", duration => new BreathingActivity(duration) },
-            { "2", duration => new ReflectionActivity(duration) },
-            { "3", duration => new ListingActivity(duration) }
+            { "1", () => new Breathing() },
+            { "2", () => new Reflection() },
+            { "3", () => new Listing() },
+            { "4", () => new Goals() }
+            
         };
+
+
+
 
         while (true)
         {
-            Console.WriteLine("Menu:");
-            Console.WriteLine("1. Breathing Activity");
-            Console.WriteLine("2. Reflection Activity");
-            Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Quit");
+            Console.Clear();
+           
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine("  1. Breathing Activity");
+            Console.WriteLine("  2. Reflection Activity");
+            Console.WriteLine("  3. Listing Activity");
+            Console.WriteLine("  4. Goals Activity");
+            Console.WriteLine("  5. Quit");
 
-            Console.Write("Choose an activity: ");
+
+            Console.Write("Select a choice from the menu: ");
             string choice = Console.ReadLine();
 
-            if (choice == "4")
+
+            if (choice == "5")
             {
                 break;
             }
             else if (activities.ContainsKey(choice))
             {
-                Console.Write("Enter the duration for the activity in seconds: ");
-                int duration = int.Parse(Console.ReadLine());
-                var activity = activities[choice](duration);
+                var activity = activities[choice]();
                 activity.Start();
             }
             else
@@ -215,3 +308,10 @@ public class Program
         }
     }
 }
+
+
+
+
+
+
+
