@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
+//Enhancement: We added another section so you can reflect on goals you would like to do for the year to improve yourself
+
 
 public abstract class MindfulnessActivity
 {
