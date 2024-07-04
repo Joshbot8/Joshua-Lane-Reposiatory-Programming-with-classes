@@ -6,7 +6,6 @@ using System.IO;
 //Creativity: my program excedes the requirements by working with a library of scriptures rather than a single one. it is randomly selected by a number generator.
 
 
-
 // Main program class
 class Program
 {
