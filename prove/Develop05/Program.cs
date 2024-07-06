@@ -2,12 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+
+
+
+
+
+
+
 public abstract class Goal
 {
     public string Title { get; set; }
     public string Description { get; set; }
     public int Points { get; set; }
-    public bool IsCompleted { get; protected set; }
+    public bool IsCompleted { get; set; }
+
+
+
+
+
+
+
 
     public Goal(string title, string description, int points)
     {
@@ -17,14 +31,35 @@ public abstract class Goal
         IsCompleted = false;
     }
 
+
+
+
+
+
+
+
     public abstract void Complete();
     public abstract void DisplayStatus();
 }
+
+
+
+
+
+
+
 
 public class SimpleGoal : Goal
 {
     public SimpleGoal(string title, string description, int points)
         : base(title, description, points) { }
+
+
+
+
+
+
+
 
     public override void Complete()
     {
@@ -35,21 +70,49 @@ public class SimpleGoal : Goal
         }
     }
 
+
+
+
+
+
+
+
     public override void DisplayStatus()
     {
         Console.WriteLine($"{(IsCompleted ? "[X]" : "[ ]")} {Title} - {Description} - {Points} points");
     }
 }
 
+
+
+
+
+
+
+
 public class EternalGoal : Goal
 {
     public EternalGoal(string title, string description, int points)
         : base(title, description, points) { }
 
+
+
+
+
+
+
+
     public override void Complete()
     {
         Console.WriteLine($"{Title} recorded! You earned {Points} points.");
     }
+
+
+
+
+
+
+
 
     public override void DisplayStatus()
     {
@@ -57,11 +120,25 @@ public class EternalGoal : Goal
     }
 }
 
+
+
+
+
+
+
+
 public class ChecklistGoal : Goal
 {
     public int TargetCount { get; set; }
     public int CurrentCount { get; set; }
     public int BonusPoints { get; set; }
+
+
+
+
+
+
+
 
     public ChecklistGoal(string title, string description, int points, int targetCount, int bonusPoints)
         : base(title, description, points)
@@ -70,6 +147,13 @@ public class ChecklistGoal : Goal
         CurrentCount = 0;
         BonusPoints = bonusPoints;
     }
+
+
+
+
+
+
+
 
     public override void Complete()
     {
@@ -85,11 +169,25 @@ public class ChecklistGoal : Goal
         }
     }
 
+
+
+
+
+
+
+
     public override void DisplayStatus()
     {
         Console.WriteLine($"{(IsCompleted ? "[X]" : "[ ]")} {Title} - {Description} - {Points} points - Completed {CurrentCount}/{TargetCount} times");
     }
 }
+
+
+
+
+
+
+
 
 public class Program
 {
@@ -98,48 +196,115 @@ public class Program
     static int level = 1;
     static int pointsToNextLevel = 1000;
 
+
+
+
+
+
+
+
     static void Main(string[] args)
     {
-        LoadGoals();
         DisplayMenu();
     }
+
+
+
+
+
+
+
 
     static void DisplayMenu()
     {
         while (true)
         {
+            //Console.WriteLine("\nEternal Quest Program");
+            //Console.WriteLine("1. Display Goals");
+            //Console.WriteLine("2. Add Goal");
+            //Console.WriteLine("3. Record Goal Completion");
+            //Console.WriteLine("4. Display Score");
+            //Console.WriteLine("5. Save and Exit");
+
+
+
+
+
+
+
+
             Console.WriteLine("\nEternal Quest Program");
-            Console.WriteLine("1. Display Goals");
-            Console.WriteLine("2. Add Goal");
-            Console.WriteLine("3. Record Goal Completion");
-            Console.WriteLine("4. Display Score");
-            Console.WriteLine("5. Save and Exit");
+            Console.WriteLine("1. Add Goal");
+            Console.WriteLine("2. List Goals");
+            Console.WriteLine("3. Save Goals");
+            Console.WriteLine("4. Load Goals");
+            Console.WriteLine("5. Record Goal Event");
+            Console.WriteLine("6. Quit");
+
+
+
+
+
+
+
 
             string choice = Console.ReadLine();
+
+
+
+
+
+
+
 
             switch (choice)
             {
                 case "1":
-                    DisplayGoals();
-                    break;
-                case "2":
                     AddGoal();
                     break;
+                case "2":
+                    DisplayGoals();
+                    break;
                 case "3":
+                    SaveGoals();
+                    break;
+
+
+
+
+
+
+
+
+                //TBD-Function goals needs be created
+                case "4":
+                    LoadGoals();
+                    break;
+               
+                case "5":
                     RecordGoalCompletion();
                     break;
-                case "4":
-                    DisplayTotalPoints();
-                    break;
-                case "5":
-                    SaveGoals();
+                //TBD-Function Exit needs be created
+                case "6":
+                    //Exit()
                     return;
+               
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
+
+
+            DisplayTotalPoints();
         }
     }
+
+
+
+
+
+
+
 
     static void DisplayGoals()
     {
@@ -150,6 +315,13 @@ public class Program
         }
     }
 
+
+
+
+
+
+
+
     static void AddGoal()
     {
         Console.WriteLine("\nSelect goal type:");
@@ -157,7 +329,21 @@ public class Program
         Console.WriteLine("2. Eternal Goal");
         Console.WriteLine("3. Checklist Goal");
 
+
+
+
+
+
+
+
         string choice = Console.ReadLine();
+
+
+
+
+
+
+
 
         Console.Write("Enter title: ");
         string title = Console.ReadLine();
@@ -165,6 +351,13 @@ public class Program
         string description = Console.ReadLine();
         Console.Write("Enter points: ");
         int points = int.Parse(Console.ReadLine());
+
+
+
+
+
+
+
 
         switch (choice)
         {
@@ -187,10 +380,24 @@ public class Program
         }
     }
 
+
+
+
+
+
+
+
     static void RecordGoalCompletion()
     {
         Console.Write("Enter the title of the goal you completed: ");
         string title = Console.ReadLine();
+
+
+
+
+
+
+
 
         foreach (var goal in goals)
         {
@@ -208,12 +415,26 @@ public class Program
         }
     }
 
+
+
+
+
+
+
+
     static void DisplayTotalPoints()
     {
         Console.WriteLine($"\nTotal points: {totalPoints}");
         Console.WriteLine($"Current level: {level}");
         Console.WriteLine($"Points to next level: {pointsToNextLevel - totalPoints}");
     }
+
+
+
+
+
+
+
 
     static void CheckLevelUp()
     {
@@ -225,6 +446,13 @@ public class Program
             Console.WriteLine($"Congratulations! You leveled up to level {level}.");
         }
     }
+
+
+
+
+
+
+
 
     static void SaveGoals()
     {
@@ -243,6 +471,13 @@ public class Program
             }
         }
     }
+
+
+
+
+
+
+
 
     static void LoadGoals()
     {
@@ -263,6 +498,9 @@ public class Program
                     int points = int.Parse(parts[3]);
                     bool isCompleted = bool.Parse(parts[4]);
 
+
+
+
                     if (type == nameof(SimpleGoal))
                     {
                         goals.Add(new SimpleGoal(title, description, points) { IsCompleted = isCompleted });
@@ -273,13 +511,18 @@ public class Program
                     }
                     else if (type == nameof(ChecklistGoal))
                     {
-                        int targetCount = int.Parse(reader.ReadLine());
-                        int currentCount = int.Parse(reader.ReadLine());
-                        int bonusPoints = int.Parse(reader.ReadLine());
-                        goals.Add(new ChecklistGoal(title, description, points, targetCount, bonusPoints) 
-                        { 
-                            CurrentCount = currentCount, 
-                            IsCompleted = isCompleted 
+                        string checklistLine;
+                        checklistLine = reader.ReadLine();
+
+
+                        var checkListParts = checklistLine.Split('|');
+                        int targetCount = int.Parse(checkListParts[0]);
+                        int currentCount = int.Parse(checkListParts[1]);
+                        int bonusPoints = int.Parse(checkListParts[2]);
+                        goals.Add(new ChecklistGoal(title, description, points, targetCount, bonusPoints)
+                        {
+                            CurrentCount = currentCount,
+                            IsCompleted = isCompleted
                         });
                     }
                 }
@@ -287,3 +530,16 @@ public class Program
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
