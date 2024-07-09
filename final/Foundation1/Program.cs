@@ -1,16 +1,41 @@
 using System;
 
+//main
+class Program ()
+{
+    
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello Foundation2 World!");
+        List<Video> _videoList = new List<Video>();
+    }
+
+}
 
     class Video
     {
         // Attributes
-       // TBD - fix the setters and getter to make them public (like in our last program)
-        private string _title { get; set; }
-        private string _author { get; set; }
-        private int _length { get; set; }
+        List<Comment> _comments = new List<Comment>();
 
-        //TBD - This needs to reference the new “Comment” class
-        // List<Comment> _comments { get; set; }
+        private string _title ;
+        private string _author ;
+        private int _length ;
+
+        public string Title
+        {
+            get { return _title; }
+            private set { _title = value; }
+        }
+        public string Author
+        {
+            get { return _author; }
+            private set { _author = value; }
+        }
+        public int Length
+        {
+            get { return _length; }
+            private set { _length = value; }
+        }
 
 
         // Constructor
@@ -18,15 +43,13 @@ using System;
         {
             _title = title;
             _author = author;
-           // TBD - Do this after Commets is created
-           // _comments  =  Comments Information;
             _length  =  length; //length of the video;
         }
 
         // Methods
-        public void AddComment()
+        public void AddComment(string name, string text)
         {
-           // TBD
+           _comments.Add(new Comment(name, text));
         }
 
         public void DisplayVideoInfoAndComments()
@@ -45,14 +68,26 @@ using System;
     class Comment
     {
         // Attributes
-        public string _name { get; set; }
-        public string _text { get; set; }
+        private string _commentAuthor ;
+        private string _commentText ;
+
+        public string Name
+        {
+            get { return _commentAuthor; }
+            private set { _commentAuthor = value; }
+        }
+        public string Text
+        {
+            get { return _commentText; }
+            private set { _commentText = value; }
+        }
+
 
         // Methods
         public Comment( string name, string text)
         {
-           _name = name;
-           _text = text;
+           _commentAuthor = name;
+           _commentText = text;
         }
 
         public void DisplayComment()
@@ -61,3 +96,4 @@ using System;
         }
 
      }
+
