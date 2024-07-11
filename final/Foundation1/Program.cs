@@ -1,18 +1,20 @@
 using System;
+using System.Collections.Generic;
 
 
 
 
-//main
-class Program ()
+class Program
 {
-   
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Foundation2 World!");
+
+
 
 
         List<Video> _videoList = new List<Video>();
+
+
 
 
         string localTitle = "Title 1";
@@ -21,138 +23,48 @@ class Program ()
 
 
 
+
+        // Create three videos
         Video video1 = new Video(localTitle, localAuthor, localLength);
-        string _commentAuthor = "CommentAuthor1";
-        string _commentText = "CommentText1";
-
-        video1.AddComment(_commentAuthor, _commentText);
-
-        video1.AddComment("Howdy im the second author","I am the text :D");
+        Video video2 = new Video("Title 2", "Author 2", 150);
+        Video video3 = new Video("Title 3", "Author 3", 180);
 
 
+
+
+        // test video1 with zero comments
+
+
+
+
+        // Add two comments to video2
+        video2.AddComment("CommentAuthor1", "Great video!");
+        video2.AddComment("CommentAuthor2", "Very informative.");
+
+
+
+
+        // Add three comments to video3
+        video3.AddComment("CommentAuthor1", "Nice tutorial.");
+        video3.AddComment("CommentAuthor2", "Loved it!");
+        video3.AddComment("CommentAuthor3", "Keep up the good work.");
+
+
+
+
+        // Add videos to the list
         _videoList.Add(video1);
-       
-       int temp = _videoList.Count();
+        _videoList.Add(video2);
+        _videoList.Add(video3);
 
-       video1.GetNumberOfComments();
 
-       Console.WriteLine("Comments ("+ video1.GetNumberOfComments() +")");
+
+
+        // Iterate through the list of videos and display details
+        foreach (var video in _videoList)
+        {
+            video.DisplayVideoInfoAndComments();
+            Console.WriteLine("\n");            
+        }
     }
 }
-    class Video
-    {
-        // Attributes
-        List<Comment> _commentsList = new List<Comment>();
-
-
-
-
-        private string _title ;
-        private string _author ;
-        private int _length ;
-
-
-
-
-        public string Title
-        {
-            get { return _title; }
-            private set { _title = value; }
-        }
-        public string Author
-        {
-            get { return _author; }
-            private set { _author = value; }
-        }
-        public int Length
-        {
-            get { return _length; }
-            private set { _length = value; }
-        }
-
-
-        // Constructor
-        public Video(string title, string author, int length)
-        {
-            _title = title;
-            _author = author;
-            _length  =  length; //length of the video;
-        }
-
-
-
-
-        // Methods
-        public void AddComment(string name, string text)
-        {
-           _commentsList.Add(new Comment(name, text));
-        }
-
-
-
-
-        public void DisplayVideoInfoAndComments()
-        {
-            //TBD
-        }
-
-
-
-
-        public int GetNumberOfComments()
-        {
-            return _commentsList.Count;
-        }
-
-
-
-
-       
-    }
-
-
-
-
-    class Comment
-    {
-        // Attributes
-        private string _commentAuthor ;
-        private string _commentText ;
-
-
-
-
-        public string Name
-        {
-            get { return _commentAuthor; }
-            private set { _commentAuthor = value; }
-        }
-        public string Text
-        {
-            get { return _commentText; }
-            private set { _commentText = value; }
-        }
-
-
-
-
-
-
-
-
-        // Methods
-        public Comment( string name, string text)
-        {
-           _commentAuthor = name;
-           _commentText = text;
-        }
-
-
-
-        public void DisplayComment()
-        {
-           Console.WriteLine( _commentAuthor + ": " + _commentText);
-        }
-
-     }
-
