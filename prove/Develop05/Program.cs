@@ -129,13 +129,20 @@ public class Program
         {
             if (goal.Title == title)
             {
-                goal.Complete();
-                _totalPoints += goal.Points;
-                if (goal is ChecklistGoal checklistGoal && checklistGoal.IsCompleted)
+                if(goal.IsCompleted)
                 {
-                    _totalPoints += checklistGoal.BonusPoints;
+                    Console.Write("Sorry this goal has already been completed\n");
                 }
-                CheckLevelUp();
+                else
+                {
+                    goal.Complete();
+                    _totalPoints += goal.Points;
+                    if (goal is ChecklistGoal checklistGoal && checklistGoal.IsCompleted)
+                    {
+                        _totalPoints += checklistGoal.BonusPoints;
+                    }
+                    CheckLevelUp();
+                }
                 break;
             }
         }
