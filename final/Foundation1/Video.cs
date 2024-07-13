@@ -7,8 +7,6 @@ class Video
     private int _length;
 
 
-
-
     public string Title
     {
         get { return _title; }
