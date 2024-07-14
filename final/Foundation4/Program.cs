@@ -32,6 +32,7 @@ class Activity
         private set { _minutes = value; }
     }
     
+    public abstract void TemporaryParent();
 }
 
 class Running
@@ -48,6 +49,10 @@ class Running
     {
         get { return _distance; }
         private set { _distance = value; }
+    }
+    public override void TemporaryParent()
+    {
+        Console.WriteLine("placeholder");
     }
 }
 
@@ -66,6 +71,10 @@ class Biking
         get { return _speed; }
         private set { _speed = value; }
     }
+    public override void TemporaryParent()
+    {
+        Console.WriteLine("placeholder");
+    }
 }
 
 class Swimming
@@ -83,5 +92,9 @@ class Swimming
     {
         get { return _laps; }
         private set { _laps = value; }
+    }
+    public override void TemporaryParent()
+    {
+        Console.WriteLine("placeholder");
     }
 }
